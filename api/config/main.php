@@ -43,13 +43,6 @@ return [
             'rules' => [
                 [
                     'class' => 'yii\rest\UrlRule',
-                    'controller' => 'v1/product',
-                    'tokens' => [
-                        '{id}' => '<id:\\w+>'
-                    ]
-                ],
-                [
-                    'class' => 'yii\rest\UrlRule',
                     'controller' => 'v1/news',
                     'tokens' => [
                         '{id}' => '<id:\\w+>'
@@ -69,6 +62,8 @@ return [
 
         '@siteFaCategoryPatch' => 'http://yaldayekavir.com/index.php/fa/shopping',
         '@siteEnCategoryPatch' => 'http://yaldayekavir.com/index.php/en/shopping-2',
+        '@siteFaPatch' => 'http://yaldayekavir.com/index.php/fa',
+        '@siteEnPatch' => 'http://yaldayekavir.com/index.php/en',
         '@baseCategoryImagePath' => 'http://yaldayekavir.com/components/com_jshopping/files/img_categories',
         '@baseProductImagePath' => 'http://yaldayekavir.com/components/com_jshopping/files/img_products',
         '@baseLabelImagePath' => 'http://yaldayekavir.com/components/com_jshopping/files/img_labels',

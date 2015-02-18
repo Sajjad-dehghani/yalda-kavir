@@ -8,7 +8,7 @@ class ProductViewAction extends \yii\rest\Action
     public function run()
     {
         $params = Yii::$app->request->queryParams;
-        if ($params['id']) {
+        if (isset($params['id'])) {
             return $this->properData($params['id']);
         }
     }
@@ -31,15 +31,15 @@ class ProductViewAction extends \yii\rest\Action
             $result = [];
             foreach ($query as $items) {
                 $result[] = [
-                    'product_id' => $items['product_id'],
-                    'product_thumb_image' => $items['product_thumb_image']
+                    'id' => $items['product_id'],
+                    'thumb_image' => $items['product_thumb_image']
                         ? Yii::$aliases['@baseProductImagePath'] . '/' . $items['product_thumb_image']
                         : "",
 
-                    'product_name_image' => $items['product_name_image']
+                    'image' => $items['product_name_image']
                         ? Yii::$aliases['@baseProductImagePath'] . '/' . $items['product_name_image']
                         : "",
-                    'product_date_added' => $items['product_date_added'],
+                    'added_date' => $items['product_date_added'],
                     'label' => [
                         'name' => $items['label_name'],
                         'image' => $items['label_image']
@@ -51,13 +51,13 @@ class ProductViewAction extends \yii\rest\Action
                             'name' => $items['name_fa-IR'],
                             'path' => $items['alias_fa-IR'],
                             'short_description' => strip_tags($items['short_description_fa-IR']),
-                            'description' => strip_tags($items['description_fa-IR']),
+                            'full_text' => strip_tags($items['description_fa-IR']),
                         ],
                         'en' => [
                             'name' => $items['name_en-GB'],
                             'path' => $items['alias_en-GB'],
                             'short_description' => strip_tags($items['short_description_en-GB']),
-                            'description' => strip_tags($items['description_en-GB']),
+                            'full_text' => strip_tags($items['description_en-GB']),
                         ],
                     ]
                 ];

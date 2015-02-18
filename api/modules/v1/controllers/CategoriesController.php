@@ -13,7 +13,12 @@ use yii\web\Response;
  */
 class CategoriesController extends ActiveController
 {
-    public $modelClass = 'api\modules\v1\models\categories';
+    public $modelClass = 'api\modules\v1\models\Categories';
+
+    public $serializer = [
+        'class' => 'yii\rest\Serializer',
+        'collectionEnvelope' => 'items',
+    ];
 
     public $enableCsrfValidation = false;
 
@@ -29,6 +34,7 @@ class CategoriesController extends ActiveController
             ],
         ]);
     }
+
     /**
      * @inheritdoc
      */

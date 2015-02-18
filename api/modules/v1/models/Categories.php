@@ -47,7 +47,7 @@ class Categories extends \yii\db\ActiveRecord
     {
         return [
             'category_id',
-            'category_image' => function ($model) {
+            'image' => function ($model) {
                 return $model['category_image']
                     ? Yii::$aliases['@baseCategoryImagePath'] . '/' . $model['category_image']
                     : "";
