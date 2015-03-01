@@ -21,7 +21,6 @@ return [
         'response' => [
             'format' => yii\web\Response::FORMAT_JSON,
             'charset' => 'UTF-8',
-
         ],
         'user' => [
             'identityClass' => 'common\models\User',

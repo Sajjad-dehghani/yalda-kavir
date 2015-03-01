@@ -36,8 +36,8 @@ class NewsAction extends \yii\rest\Action
                         Yii::$aliases['@siteFaPatch'] . '/' . $items['alias']
                         : Yii::$aliases['@siteEnPatch'] . '/' . $items['alias'],
                     'language' => $items['language'],
-                    'short_description' => $items['introtext'],
-                    'full_text' => $items['fulltext']
+                    'short_description' => str_replace(["\n", "\r", "<br />", "&nbsp;"], "", (strip_tags($items['introtext']))),
+                    'full_text' => str_replace(["\n", "\r", "<br/>", "&nbsp;"], "", (strip_tags($items['fulltext'])))
                 ];
             }
             return $result;

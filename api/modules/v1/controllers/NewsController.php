@@ -2,6 +2,8 @@
 
 namespace api\modules\v1\controllers;
 
+use yii\filters\ContentNegotiator;
+use yii\filters\VerbFilter;
 use yii\helpers\ArrayHelper;
 use yii\rest\ActiveController;
 use yii\web\Response;
@@ -26,11 +28,15 @@ class NewsController extends ActiveController
     {
         return ArrayHelper::merge(parent::behaviors(), [
             'contentNegotiator' => [
+                'class' => ContentNegotiator::className(),
                 'formats' => [
                     'application/json' => Response::FORMAT_JSON,
-                    'application/html' => Response::FORMAT_JSON,
-                    'charset' => 'UTF-8',
+                    'application/xml' => Response::FORMAT_JSON,
                 ],
+            ],
+            'verbFilter' => [
+                'class' => VerbFilter::className(),
+                'actions' => $this->verbs(),
             ],
         ]);
     }

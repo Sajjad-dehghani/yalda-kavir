@@ -34,10 +34,12 @@ class NewsViewAction extends \yii\rest\Action
                     'type' => $items['cat_title'],
                     'title' => $items['title'],
                     'language' => $items['language'],
-                    'short_description' => $items['introtext'],
-                    'full_text' => $items['fulltext']
+                    'short_description' => str_replace(["\n", "\r", "<br />", "&nbsp;"], "", nl2br(strip_tags($items['introtext']))),
+                    'full_text' => str_replace(["\n", "\r", "<br />", "&nbsp;"], "", nl2br(strip_tags($items['fulltext'])))
                 ];
             }
+            $getResponse = Yii::$app->getResponse();
+            $getResponse->setStatusCode(200);
             return $result;
 
         } else {
