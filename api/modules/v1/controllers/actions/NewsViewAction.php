@@ -13,6 +13,18 @@ class NewsViewAction extends \yii\rest\Action
         }
     }
 
+    private static function seprateImages($string)
+    {
+        preg_match_all('/<img[^>]+>/i', $string, $result);
+        $res = [];
+        for ($i = 0, $count = count($result[0]); $i < $count; $i++) {
+            if (preg_match('/src="([^"]*)"/i', $result[0][$i], $tt)) {
+                $res[] = ['http://yaldayekavir.com/' . $tt[1]];
+            }
+        }
+        return $res;
+    }
+
     public function properData($id)
     {
         $query = (new yii\db\Query())
@@ -29,13 +41,17 @@ class NewsViewAction extends \yii\rest\Action
         if ($query) {
             $result = [];
             foreach ($query as $items) {
+                $short_description = str_replace(["\n", "\r", "<br />", "&nbsp;"], "", nl2br(strip_tags($items['introtext'])));
                 $result[] = [
                     'id' => $items['id'],
                     'type' => $items['cat_title'],
                     'title' => $items['title'],
                     'language' => $items['language'],
-                    'short_description' => str_replace(["\n", "\r", "<br />", "&nbsp;"], "", nl2br(strip_tags($items['introtext']))),
-                    'full_text' => str_replace(["\n", "\r", "<br />", "&nbsp;"], "", nl2br(strip_tags($items['fulltext'])))
+                    'images' => self::seprateImages(str_replace(["\n", "\r", "<br />", "&nbsp;"], "", nl2br(strip_tags($items['introtext'], '<img>')))),
+                    'short_description' => $short_description,
+                    'full_text' => $items['fulltext'] == ""
+                        ? $short_description
+                        : str_replace(["\n", "\r", "<br />", "&nbsp;"], "", nl2br(strip_tags($items['fulltext'])))
                 ];
             }
             $getResponse = Yii::$app->getResponse();
