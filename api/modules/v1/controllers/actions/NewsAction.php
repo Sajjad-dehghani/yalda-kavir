@@ -53,7 +53,8 @@ class NewsAction extends \yii\rest\Action
                     'short_description' => $short_description,
                     'full_text' => $items['fulltext'] == ""
                         ? $short_description
-                        : str_replace(["\n", "\r", "<br />", "&nbsp;"], "", nl2br(strip_tags($items['fulltext'])))
+                        : str_replace(["\n", "\r", "<br />", "&nbsp;"], "", nl2br(strip_tags($items['fulltext']))),
+                    'added_date' => $items['created'],
                 ];
             }
 
